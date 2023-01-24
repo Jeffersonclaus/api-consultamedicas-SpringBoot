@@ -22,10 +22,6 @@ public class Endereco {
 	private String cidade;
 	private String uf;
 	
-	public Endereco() {
-		
-		
-	}
 	
 	
 public Endereco(DadosEndereco dados) {

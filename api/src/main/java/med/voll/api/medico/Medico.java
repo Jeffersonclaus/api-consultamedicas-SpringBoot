@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import med.voll.api.endereco.Endereco;
 
 
@@ -20,6 +21,7 @@ import med.voll.api.endereco.Endereco;
 @Entity(name= "Medicos")
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -35,6 +37,8 @@ public class Medico {
 	@Embedded
 	private Endereco endereco;
 	
+	
+	
 	public Medico(DadosCadastroMedico dados) {
 		
 		this.nome=dados.nome();
@@ -45,7 +49,8 @@ public class Medico {
 		this.endereco= new Endereco(dados.endereco());
 		
 	}
-	
+
+
 	
 	
 	
