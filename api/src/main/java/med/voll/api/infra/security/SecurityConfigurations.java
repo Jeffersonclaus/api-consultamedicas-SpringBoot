@@ -2,6 +2,7 @@ package med.voll.api.infra.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,11 +16,17 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfigurations {
 	
+	@SuppressWarnings("deprecation")
 	@Bean
 	public SecurityFilterChain SecurityFilterChain(HttpSecurity http) throws Exception {
-		return http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-		.and().build();
-	}
+		  return http.csrf().disable()
+                  .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                  .and().authorizeHttpRequests()
+                  .requestMatchers(HttpMethod.POST, "/login").permitAll() // liberar via posts
+                  .anyRequest().authenticated() // liberar somente com autenticao
+                  .and().build();
+		  
+		  
 	@Bean
 	public AuthenticationManager autenticationManager( AuthenticationConfiguration configuration) throws Exception {
 		return configuration.getAuthenticationManager();
